@@ -169,6 +169,12 @@ spec:
               value: {{ $storeConfig.sql.password }}
               {{- end }}
             {{- end }}
+            {{- if $storeConfig.sql.tls }}
+            - name: SQL_TLS
+              value: "{{ $storeConfig.sql.tls.enabled }}"
+            - name: SQL_TLS_DISABLE_HOST_VERIFICATION
+              value: "{{- if $storeConfig.sql.tls.enableHostVerification }}false{{- else }}true{{- end }}"
+            {{- end }}
             {{- end }}
         {{- end }}
       {{- with $.Values.imagePullSecrets }}
@@ -299,6 +305,12 @@ spec:
               {{- else }}
               value: {{ $storeConfig.sql.password }}
               {{- end }}
+            {{- end }}
+            {{- if $storeConfig.sql.tls }}
+            - name: SQL_TLS
+              value: "{{ $storeConfig.sql.tls.enabled }}"
+            - name: SQL_TLS_DISABLE_HOST_VERIFICATION
+              value: "{{- if $storeConfig.sql.tls.enableHostVerification }}false{{- else }}true{{- end }}"
             {{- end }}
             {{- end }}
         {{- end }}
